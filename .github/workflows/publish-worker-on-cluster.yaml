@@ -1,74 +1,40 @@
-name: 'Deploy updated BPMNs to Zeebe'
+name: Deploy In Cluster
 
 on:
-  push:
-    paths:
-      - 'src/main/resources/*.bpmn' # match '*.bpmn' files (created or updated)
-      - 'src/main/resources/*.dmn' # match '*.bpmn' files (created or updated)
+  workflow_run:
+    workflows: ["worker-1-build-publish-image"]  # Name of the workflow to depend on
+    types:
+      - completed
 
 jobs:
-  prepare-files:
+  deploy:
     runs-on: ubuntu-latest
-    outputs:
-      matrix-added: ${{ steps.file-changes.outputs.files_added }}
-      matrix-modified: ${{ steps.file-changes.outputs.files_modified }}
+
     steps:
-      - id: file-changes
-        uses: trilom/file-changes-action@v1.2.4
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-  deploy-modified-files:
-    if: ${{ needs.prepare-files.outputs.matrix-modified != '[]' }}
-    needs: [prepare-files]
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        file: ${{ fromJSON(needs.prepare-files.outputs.matrix-modified) }}
-    steps:
-      - name: Check Out Reference File
-        uses: Bhacaz/checkout-files@v2
-        with:
-          files: ${{ matrix.file }}
-
-      - name: Echo file
+      - name: install GKE
         run: |
-          echo ${{ matrix.file }} # to test if the correct file was passed
+          echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+          curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+          sudo apt update
+          sudo apt-get install google-cloud-sdk-gke-gcloud-auth-plugin kubectl
+          export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
-      - name: Get Bearer Toker
-        uses: fjogeleit/http-request-action@v1.16.4
-        id: zeebeBearer
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/auth@v2
         with:
-          url: 'https://login.cloud.camunda.io/oauth/token'
-          method: 'POST'
-          customHeaders: '{"Content-Type": "application/x-www-form-urlencoded"}'
-          data: 'grant_type=client_credentials&audience=zeebe.camunda.io&client_id=${{ secrets.ZEEBE_CLIENT_ID }}&client_secret=${{ secrets.ZEEBE_CLIENT_SECRET }}'
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
 
+      - name: Set up gcloud CLI
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: your-gcp-project-id
 
-      - name: Deploy to Zeebe
+      - name: Get GKE credentials
         run: |
-          curl -X POST "https://${{ secrets.CLUSTER_REGION }}.zeebe.camunda.io/${{ secrets.CLUSTER_ID }}/v2/deployments" -H "Authorization: Bearer ${{ fromJson(steps.zeebeBearer.outputs.response).access_token }}" -F "resources=@${{ github.workspace }}/${{ matrix.file }}"
-
-  deploy-new-files:
-    if: ${{ needs.prepare-files.outputs.matrix-added != '[]' }}
-    needs: [prepare-files]
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        file: ${{ fromJSON(needs.prepare-files.outputs.matrix-added) }}
-    steps:
-      - name: Check Out Reference File
-        uses: Bhacaz/checkout-files@v2
-        with:
-          files: ${{ matrix.file }}
-
-      - name: Get Bearer Token
-        uses: fjogeleit/http-request-action@v1.16.4
-        id: zeebeBearer
-        with:
-          url: 'https://login.cloud.camunda.io/oauth/token'
-          method: 'POST'
-          customHeaders: '{"Content-Type": "application/x-www-form-urlencoded"}'
-          data: 'grant_type=client_credentials&audience=zeebe.camunda.io&client_id=${{ secrets.ZEEBE_CLIENT_ID }}&client_secret=${{ secrets.ZEEBE_CLIENT_SECRET }}'
-
-      - name: Deploy to Zeebe
+          gcloud container clusters get-credentials ${{ secrets.GCP_CLUSTERNAME }} --region ${{ secrets.GCP_REGION }}
+      - name: Deploy to Kubernetes
         run: |
-          curl -X POST "https://${{ secrets.CLUSTER_REGION }}.zeebe.camunda.io/${{ secrets.CLUSTER_ID }}/v2/deployments" -H "Authorization: Bearer ${{ fromJson(steps.zeebeBearer.outputs.response).access_token }}" -F "resources=@${{ github.workspace }}/${{ matrix.file }}"
+          kubectl apply -f deployment-worker.yaml -n camunda

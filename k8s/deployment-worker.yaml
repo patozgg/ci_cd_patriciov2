@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: loanscore
-          image: ghcr.io/pierre-yves-monnet/c8-automate-test:latest
+          image: ghcr.io/patozgg/ci_cd_patriciov2:latest
           # must be set to always: then any kubectl apply will reload the latest image
           imagePullPolicy: Always
           env:

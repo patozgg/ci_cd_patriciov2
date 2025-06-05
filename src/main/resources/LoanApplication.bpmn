@@ -51,7 +51,7 @@
         <bpmn:targetRef>DataStoreReference_0y4go0p</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:dataStoreReference id="DataStoreReference_0y4go0p" name="Score of customer" />
+    <bpmn:dataStoreReference id="DataStoreReference_0y4go0p" name="Score of customer yeah" />
     <bpmn:dataStoreReference id="DataStoreReference_0ljh6i6" name="CustomerId" />
     <bpmn:userTask id="CheckManualLoan" name="Check Loan">
       <bpmn:extensionElements>
@@ -124,7 +124,7 @@
       <bpmndi:BPMNShape id="DataStoreReference_0y4go0p_di" bpmnElement="DataStoreReference_0y4go0p">
         <dc:Bounds x="375" y="45" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="356" y="102" width="90" height="14" />
+          <dc:Bounds x="356" y="102" width="90" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataStoreReference_0ljh6i6_di" bpmnElement="DataStoreReference_0ljh6i6">

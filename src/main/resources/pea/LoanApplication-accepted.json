@@ -57,7 +57,7 @@
             "fromMarker": "begin",
             "toFlowNode": "GetScore",
             "toMarker": "end",
-            "duration": "PT0.2S"
+            "duration": "PT0.3S"
           }
 
         ]

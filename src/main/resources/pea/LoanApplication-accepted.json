@@ -8,7 +8,7 @@
       "name": "Loan accepted",
       "policy": "STOPATFIRSTERROR",
       "description" : "Accepted application",
-      "numberProcessInstances": 2,
+      "numberProcessInstances": 1,
       "numberOfThreads": 1,
       "steps": [
         {

@@ -32,7 +32,7 @@
     <bpmn:endEvent id="LoanRejected" name="rejected">
       <bpmn:incoming>Flow_1j3gfyf</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:serviceTask id="GetScore" name="Get Score">
+    <bpmn:serviceTask id="GetScore" name="Get Score2">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="get-score" />
       </bpmn:extensionElements>
@@ -81,7 +81,7 @@
     <bpmn:sequenceFlow id="Flow_Rejected" name="score&#60;400" sourceRef="GatewayCheckLoanAcceptance" targetRef="RejectLoan">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=score &lt; 400</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:dataStoreReference id="DataStoreReference_0w0oz8w" name="New version 3" />
+    <bpmn:dataStoreReference id="DataStoreReference_0w0oz8w" name="New version 4" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="LoanApplication">
@@ -96,12 +96,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0dh9fik_di" bpmnElement="Gateway_0dh9fik" isMarkerVisible="true">
         <dc:Bounds x="685" y="245" width="50" height="50" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_00b63ln_di" bpmnElement="LoanRejected">
-        <dc:Bounds x="892" y="372" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="891" y="415" width="40" height="14" />
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0xepy3j_di" bpmnElement="GetScore">
         <dc:Bounds x="270" y="140" width="100" height="80" />
@@ -139,6 +133,12 @@
         <dc:Bounds x="922" y="162" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="919" y="205" width="45" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_00b63ln_di" bpmnElement="LoanRejected">
+        <dc:Bounds x="912" y="372" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="911" y="415" width="40" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1u63c8u_di" bpmnElement="Flow_1u63c8u">
@@ -187,7 +187,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1j3gfyf_di" bpmnElement="Flow_1j3gfyf">
         <di:waypoint x="840" y="390" />
-        <di:waypoint x="892" y="390" />
+        <di:waypoint x="912" y="390" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1fraqa2_di" bpmnElement="Flow_1fraqa2">
         <di:waypoint x="710" y="295" />

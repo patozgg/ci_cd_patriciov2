@@ -68,18 +68,6 @@
       <bpmn:incoming>Flow_1di2y7a</bpmn:incoming>
       <bpmn:outgoing>Flow_0fikvcg</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:subProcess id="Activity_1nntsk6" triggeredByEvent="true">
-      <bpmn:startEvent id="Event_0gsq3ea" name="2h">
-        <bpmn:outgoing>Flow_1qzl0t3</bpmn:outgoing>
-        <bpmn:timerEventDefinition id="TimerEventDefinition_0fmrdo3">
-          <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT2H</bpmn:timeDuration>
-        </bpmn:timerEventDefinition>
-      </bpmn:startEvent>
-      <bpmn:endEvent id="Event_0213w5g">
-        <bpmn:incoming>Flow_1qzl0t3</bpmn:incoming>
-      </bpmn:endEvent>
-      <bpmn:sequenceFlow id="Flow_1qzl0t3" sourceRef="Event_0gsq3ea" targetRef="Event_0213w5g" />
-    </bpmn:subProcess>
     <bpmn:serviceTask id="RejectLoan" name="Reject loan">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="reject-loan" />
@@ -150,22 +138,6 @@
           <dc:Bounds x="216" y="337" width="70" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0lowv1n_di" bpmnElement="Activity_1nntsk6" isExpanded="true">
-        <dc:Bounds x="970" y="280" width="350" height="200" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1q9yau8_di" bpmnElement="Event_0gsq3ea">
-        <dc:Bounds x="1010" y="362" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1022" y="405" width="13" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0213w5g_di" bpmnElement="Event_0213w5g">
-        <dc:Bounds x="1102" y="362" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_1qzl0t3_di" bpmnElement="Flow_1qzl0t3">
-        <di:waypoint x="1046" y="380" />
-        <di:waypoint x="1102" y="380" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Activity_06dmblc_di" bpmnElement="RejectLoan">
         <dc:Bounds x="740" y="350" width="100" height="80" />
       </bpmndi:BPMNShape>

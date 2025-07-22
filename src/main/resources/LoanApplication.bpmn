@@ -13,7 +13,7 @@
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_0bwifqp" sourceRef="GetScore" targetRef="GatewayCheckLoanAcceptance" />
     <bpmn:sequenceFlow id="Flow_Accepted" name="score &#62;800" sourceRef="GatewayCheckLoanAcceptance" targetRef="AcceptLoan">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=score &gt; 801</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=score &gt; 802</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:endEvent id="LoanAccepted" name="accepted">
       <bpmn:incoming>Flow_0fikvcg</bpmn:incoming>
@@ -81,7 +81,7 @@
     <bpmn:sequenceFlow id="Flow_Rejected" name="score&#60;400" sourceRef="GatewayCheckLoanAcceptance" targetRef="RejectLoan">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=score &lt; 400</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:dataStoreReference id="DataStoreReference_0w0oz8w" name="New version 2" />
+    <bpmn:dataStoreReference id="DataStoreReference_0w0oz8w" name="New version 3" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="LoanApplication">
@@ -92,12 +92,6 @@
         <dc:Bounds x="425" y="155" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="398" y="143" width="63" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0r7jjag_di" bpmnElement="LoanAccepted">
-        <dc:Bounds x="882" y="162" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="879" y="205" width="45" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0dh9fik_di" bpmnElement="Gateway_0dh9fik" isMarkerVisible="true">
@@ -141,6 +135,12 @@
       <bpmndi:BPMNShape id="Activity_06dmblc_di" bpmnElement="RejectLoan">
         <dc:Bounds x="740" y="350" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0r7jjag_di" bpmnElement="LoanAccepted">
+        <dc:Bounds x="922" y="162" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="919" y="205" width="45" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1u63c8u_di" bpmnElement="Flow_1u63c8u">
         <di:waypoint x="218" y="180" />
         <di:waypoint x="270" y="180" />
@@ -158,7 +158,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0fikvcg_di" bpmnElement="Flow_0fikvcg">
         <di:waypoint x="840" y="180" />
-        <di:waypoint x="882" y="180" />
+        <di:waypoint x="922" y="180" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0oycymj_di" bpmnElement="Flow_CheckUser">
         <di:waypoint x="458" y="197" />

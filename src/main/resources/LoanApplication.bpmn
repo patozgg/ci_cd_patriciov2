@@ -13,7 +13,7 @@
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_0bwifqp" sourceRef="GetScore" targetRef="GatewayCheckLoanAcceptance" />
     <bpmn:sequenceFlow id="Flow_Accepted" name="score &#62;800" sourceRef="GatewayCheckLoanAcceptance" targetRef="AcceptLoan">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=score &gt; 800</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=score &gt; 801</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:endEvent id="LoanAccepted" name="accepted">
       <bpmn:incoming>Flow_0fikvcg</bpmn:incoming>
@@ -45,6 +45,9 @@
       </bpmn:dataInputAssociation>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_13x2ru5">
         <bpmn:targetRef>DataStoreReference_0y4go0p</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0k1se6i">
+        <bpmn:targetRef>DataStoreReference_0w0oz8w</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
     <bpmn:dataStoreReference id="DataStoreReference_0y4go0p" name="Score of customer yeah 6" />
@@ -90,6 +93,7 @@
     <bpmn:sequenceFlow id="Flow_Rejected" name="score&#60;400" sourceRef="GatewayCheckLoanAcceptance" targetRef="RejectLoan">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=score &lt; 400</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
+    <bpmn:dataStoreReference id="DataStoreReference_0w0oz8w" name="New version 2" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="LoanApplication">
@@ -140,8 +144,11 @@
         <dc:Bounds x="740" y="140" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_06dmblc_di" bpmnElement="RejectLoan">
-        <dc:Bounds x="740" y="350" width="100" height="80" />
+      <bpmndi:BPMNShape id="DataStoreReference_0w0oz8w_di" bpmnElement="DataStoreReference_0w0oz8w">
+        <dc:Bounds x="225" y="280" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="216" y="337" width="70" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0lowv1n_di" bpmnElement="Activity_1nntsk6" isExpanded="true">
         <dc:Bounds x="970" y="280" width="350" height="200" />
@@ -159,6 +166,9 @@
         <di:waypoint x="1046" y="380" />
         <di:waypoint x="1102" y="380" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_06dmblc_di" bpmnElement="RejectLoan">
+        <dc:Bounds x="740" y="350" width="100" height="80" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1u63c8u_di" bpmnElement="Flow_1u63c8u">
         <di:waypoint x="218" y="180" />
         <di:waypoint x="270" y="180" />
@@ -195,18 +205,6 @@
         <di:waypoint x="710" y="200" />
         <di:waypoint x="740" y="200" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_12x0rsf_di" bpmnElement="Flow_Rejected">
-        <di:waypoint x="450" y="205" />
-        <di:waypoint x="450" y="390" />
-        <di:waypoint x="740" y="390" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="464" y="373" width="52" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1j3gfyf_di" bpmnElement="Flow_1j3gfyf">
-        <di:waypoint x="840" y="390" />
-        <di:waypoint x="892" y="390" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataInputAssociation_1alxspw_di" bpmnElement="DataInputAssociation_1alxspw">
         <di:waypoint x="249" y="95" />
         <di:waypoint x="283" y="140" />
@@ -215,10 +213,26 @@
         <di:waypoint x="351" y="140" />
         <di:waypoint x="386" y="95" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1j3gfyf_di" bpmnElement="Flow_1j3gfyf">
+        <di:waypoint x="840" y="390" />
+        <di:waypoint x="892" y="390" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1fraqa2_di" bpmnElement="Flow_1fraqa2">
         <di:waypoint x="710" y="295" />
         <di:waypoint x="710" y="360" />
         <di:waypoint x="740" y="360" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_12x0rsf_di" bpmnElement="Flow_Rejected">
+        <di:waypoint x="450" y="205" />
+        <di:waypoint x="450" y="390" />
+        <di:waypoint x="740" y="390" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="464" y="373" width="52" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0k1se6i_di" bpmnElement="DataOutputAssociation_0k1se6i">
+        <di:waypoint x="298" y="220" />
+        <di:waypoint x="266" y="280" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
